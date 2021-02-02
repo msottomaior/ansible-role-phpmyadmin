@@ -1,0 +1,37 @@
+---
+# tasks file for phpMyAdmin
+- name: Determine if phpmyadmin folder exists.
+  stat:
+    path: /usr/share/phpmyadmin
+  register: phpmyadmin_folder
+
+- name: Move installed phpmyadmin folder to phpmyadmin-old.
+  command: mv /usr/share/phpmyadmin /usr/share/phpmyadmin-old
+  when: phpmyadmin_folder.stat.exists
+
+- name: Download phpMyAdmin.
+  get_url:
+    url: "https://files.phpmyadmin.net/phpMyAdmin/{{ phpmyadmin_version }}/phpMyAdmin-{{ phpmyadmin_version }}-all-languages.tar.gz"
+    dest: "{{ download_dir }}/phpMyAdmin-{{ phpmyadmin_version }}-all-languages.tar.gz"
+    checksum: "{{ phpmyadmin_checksum }}"
+
+- name: Ensure phpmyadmin directory exists.
+  file: 
+    path: /usr/share/phpmyadmin
+    state: directory
+
+- name: Expand phpMyAdmin.
+  unarchive:
+    src: "{{ download_dir }}/phpMyAdmin-{{ phpmyadmin_version }}-all-languages.tar.gz"
+    dest: /usr/share/phpmyadmin
+    remote_src: yes
+    extra_opts: [--strip-components=1] #expand to phpmyadmin directory directly
+
+- name: Copy config.inc.php if exists phpmyadmin folder already exists.
+  copy:
+    src: /usr/share/phpmyadmin-old/config.inc.php
+    dest: /usr/share/phpmyadmin/config.inc.php
+  when: phpmyadmin_folder.stat.exists
+  
+
+

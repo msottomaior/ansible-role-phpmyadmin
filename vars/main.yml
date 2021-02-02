@@ -1,0 +1,10 @@
+---
+# vars file for phpMyAdmin
+download_dir: /tmp
+phpmyadmin_dir: /usr/share/phpmyadmin
+phpmyadmin_version: 5.0.4
+phpmyadmin_checksum: sha256:fbb993b74a7c29ce2fcdb6b6be22b0b6c58bff8df3292ab42f6280871450c316
+
+
+#https://files.phpmyadmin.net/phpMyAdmin/5.0.4/phpMyAdmin-5.0.4-all-languages.tar.gz
+#fbb993b74a7c29ce2fcdb6b6be22b0b6c58bff8df3292ab42f6280871450c316
