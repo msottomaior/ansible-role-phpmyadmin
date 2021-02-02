@@ -1,7 +1,7 @@
-Role Name
+Role phpMyAdmin
 =========
 
-A brief description of the role goes here.
+Ansible role for a Debian/Ubuntu distro to download and upgrade phpMyAdmin.
 
 Requirements
 ------------
